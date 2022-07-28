@@ -1,34 +1,39 @@
+
 const queryConnection = require('./consultaConexao');
 
-
-const adiciona = (dados, res, nomeTab) => {
+const adiciona = (dados, nomeTab) => {
 
     const sql = `INSERT INTO ${nomeTab} SET ?`;
-    queryConnection.inserirDados(sql, dados, res);
+
+    return queryConnection.inserirDados(sql, dados);
 }
 
-const lista = (res, nomeTab) => {
+const lista = (nomeTab) => {
     
     const sql = `SELECT * FROM ${nomeTab}`;
-    queryConnection.pegarDados(sql, res);
+
+    return queryConnection.consultaTabela(sql);
 }
 
-const buscaId = (id, res, nomeTab) => {
+const buscaId = (id, nomeTab) => {
     
     const sql = `SELECT * FROM ${nomeTab} WHERE id=${id}`;
-    queryConnection.pegarDados(sql, res);
+    
+    return queryConnection.consultaTabela(sql);
 }
 
-const deleta = (id, res, nomeTab) => {
+const deleta = (id, nomeTab) => {
 
     const sql = `DELETE FROM ${nomeTab} WHERE id=${id}`;
-    queryConnection.pegarDados(sql, res);
+
+    return queryConnection.consultaTabela(sql);
 }
 
-const atualiza = (dados, id, res, nomeTab) => {
+const atualiza = (dados, id, nomeTab) => {
 
-    const sql = `UPDATE ${nomeTab} SET ? WHERE ?`;
-    queryConnection.inserirDados(sql, [dados, id], res);
+    const sql = `UPDATE ${nomeTab} SET ? WHERE id=${id}`;
+
+    return queryConnection.inserirDados(sql, dados);
 }
 
 module.exports = {

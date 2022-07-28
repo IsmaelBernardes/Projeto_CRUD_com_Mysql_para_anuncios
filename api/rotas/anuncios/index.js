@@ -1,4 +1,5 @@
 const chamadaBancDad = require("../../bancoDeDados/chamadaBancDad");
+const anuncios = require('../../tratarDados/anuncios');
 
 module.exports = (router) => {
     
@@ -6,26 +7,47 @@ module.exports = (router) => {
 
     router.get('/anuncios', (req, res) => {
 
-        chamadaBancDad.lista(res, nameTab);
+        chamadaBancDad.lista(nameTab)
+            .then(([rows]) => {
+                
+                res.send(JSON.stringify(rows));
+            }).catch(console.log);
     });
 
     router.post('/anuncios', (req, res) => {
 
-        chamadaBancDad.adiciona(req.body, res, nameTab);
+        const anuncio = anuncios.criar(req.body);
+        chamadaBancDad.adiciona(anuncio, nameTab)
+            .then(([rows]) => {
+            
+                res.send(JSON.stringify(rows));
+            }).catch(console.log);
     });
     
     router.get('/anuncios/:id', (req, res) => {
 
-        chamadaBancDad.buscaId(req.params.id, res, nameTab);
+        chamadaBancDad.buscaId(req.params.id, nameTab)
+            .then(([rows]) => {
+                
+                res.send(JSON.stringify(rows));
+            }).catch(console.log);
     });
     
     router.delete('/anuncios/:id', (req, res) => {
 
-        chamadaBancDad.deleta(req.params.id, res, nameTab);
+        chamadaBancDad.deleta(req.params.id, nameTab)
+            .then(([rows]) => {
+                
+                res.send(JSON.stringify(rows));
+            }).catch(console.log);
     });
 
     router.put('/anuncios/:id', (req, res) => {
         
-        chamadaBancDad.atualiza(req.body, req.params.id, res, nameTab);
+        chamadaBancDad.atualiza(req.body, req.params.id, nameTab)
+            .then(([rows]) => {
+                
+                res.send(JSON.stringify(rows));
+            }).catch(console.log);
     });
 }

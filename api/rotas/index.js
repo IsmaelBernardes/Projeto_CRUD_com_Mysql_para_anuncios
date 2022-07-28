@@ -11,5 +11,5 @@ module.exports = (app) => {
     routerAnuncios(router);
     routerPesquisas(router);
     
-    app.use('/api/propaganda/',  router);
+    app.use('/propaganda/',  router);
 }

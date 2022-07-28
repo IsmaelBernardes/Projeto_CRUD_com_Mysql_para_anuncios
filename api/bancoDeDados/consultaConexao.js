@@ -1,49 +1,20 @@
 const conexao = require("../infraestutura/conexao");
 
-const conectaTabela = (sql, id) => {
+const consultaTabela = (sql) => {
 
-    conexao().query(sql, (err) => {
-
-        if(err){
-            
-            throw new Error(err);
-        }else{
-
-            console.log(`Tabela de ${id} conectada/criada;`);
-        }
-    });
+    return conexao()
+        .promise()
+        .query(sql);
 }
 
-const pegarDados = (sql, res) => {
+const inserirDados = (sql, dado) => {
 
-    conexao().query(sql, (erro, resposta) => {
-        
-        if(erro){
-            
-            res.status(400).json(erro);
-        }else{
-            
-            res.status(200).json(resposta);
-        }
-    });
-}
-
-const inserirDados = (sql, dadoComData, res) => {
-
-    conexao().query(sql, dadoComData, (erro, resposta) => {
-        
-        if(erro){
-            
-            res.status(400).json(erro);
-        }else{
-            
-            res.status(201).json(resposta);
-        }
-    });
+    return conexao()
+        .promise()
+        .query(sql, dado);
 }
 
 module.exports = {
-    conectaTabela,
-    pegarDados,
+    consultaTabela,
     inserirDados
 }
